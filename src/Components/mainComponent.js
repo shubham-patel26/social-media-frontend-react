@@ -16,8 +16,12 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
+    this.setLogin = this.setLogin.bind(this);
+    this.setName = this.setName.bind(this);
     this.state={
-      tags:['a','b','c']
+      tags:['a','b','c'],
+      isLoggedin: false,
+      username: ''
       
     }
   }
@@ -30,6 +34,19 @@ class Main extends Component {
   //       tags: tagList
   //     })
   // }
+
+  setLogin(success){
+    this.setState({
+      isLoggedin: success
+      
+    })
+  }
+  setName(username){
+    this.setState({
+      
+      username : username
+    })
+  }
   render() {
     
     const PostWithId= ({match})=>{
@@ -45,7 +62,7 @@ class Main extends Component {
     }
     return (
       <div className='container'>
-          <Header />
+          <Header setLogin={this.setLogin} setName={this.setName} isLoggedin={this.state.isLoggedin} username={this.state.username}/>
 
           <Switch>
             <Route path='/home' component={Home} />

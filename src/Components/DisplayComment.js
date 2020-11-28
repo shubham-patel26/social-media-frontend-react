@@ -1,10 +1,12 @@
 import React from 'react';
 import {Media} from 'reactstrap';
 
-const DisplayComment=({comments})=>{
+const DisplayComment=(props)=>{
+    console.log(props)
     return (
+        
         <div>
-            {comments.map(comment=>{
+            {props.comments.map(comment=>{
                 return (
                     <Media>
                   

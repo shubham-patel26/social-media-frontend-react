@@ -13,12 +13,13 @@ class DisplayPost extends Component{
             post:{heading: 'test1',
                     body: 'test body 1',
                 userRegno:'2018ugcs026'},
-            comments: [],
+            comments: [{comment:'how are you',author:'shubham'}],
             isOpen: false
         }
     }
 
     async componentDidMount(){
+        // alert(this.props.postId);
         let post= await Axios.get(`http://localhost/3444/showpost/${this.props.postId}`);
         console.log(post);
         this.setState({
@@ -50,21 +51,16 @@ class DisplayPost extends Component{
         return (
             <div className="container">
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className='col-md-2'>
                     <button>Like</button>
                     </div>
 
-                    <div className='col-md-8'>
+                    <div className='col-md'>
                         <h3>{this.state.post.heading}</h3>
                         <p>
                             {this.state.post.body}
                         </p>
-
-                    </div>
-                </div>
-
-
-                <div className="row">
+                        <div className="row">
                 <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button>
                     <Collapse isOpen={this.state.isOpen}>
                         <Card>
@@ -85,8 +81,13 @@ class DisplayPost extends Component{
 
 
                 <div className='row'>
-                    {()=> <DisplayComment comments={this.state.comments} reg_no={this.state.post.userRegno} />}
+                    <DisplayComment comments={this.state.comments} reg_no={this.state.post.userRegno} />
                 </div>
+                    </div>
+                </div>
+
+
+                
             </div>
         )
     }
