@@ -45,6 +45,7 @@ class NewPost extends Component{
     handleSubmit(event) {
         // console.log('Current State is: ' + JSON.stringify(this.state));
         // alert('Current State is: ' + JSON.stringify(this.state));
+        
         const data={
             heading:this.state.heading,
             body: this.state.body,
@@ -59,7 +60,19 @@ class NewPost extends Component{
                 'Content-Type': 'application/json'
             }
         })
-        .then(resp=>console.log(resp))
+        .then(resp=>{
+            console.log(resp.data);
+            if(resp.data.success){
+                this.setState({
+                    heading:'',
+                    body: '',
+                    tagList:[],
+                    tag:'',
+                    touched:{heading:false,tag:false},
+                })
+                alert(resp.data.message);
+            }
+        })
         .catch(err=>console.log(err));
         event.preventDefault();
     }
@@ -150,11 +163,22 @@ class NewPost extends Component{
                              </Col>
                          </FormGroup>
                          <FormGroup row>
-                             <Col md={{size: 10, offset: 2}}>
-                                 <Button type="submit" color="primary">
-                                     Submit
-                                 </Button>
-                             </Col>
+                             {
+                                 this.props.isLoggedin?<Col md={{size: 10, offset: 2}}>
+                                                            <Button type="submit" color="primary">
+                                                            Submit
+                                                            </Button>
+                                                        </Col>
+                                                        :<Col md={{size: 10, offset: 2}}>
+                                                                <button color='primary' style={{color : "black"}}
+                                                                    disabled={!this.props.isLoggedin}
+                                                                    
+                                                                    >
+                                                                        Login First
+                                                                </button>
+                                                            </Col>
+                             }
+                             
                          </FormGroup>
                      </Form>
                  </div>

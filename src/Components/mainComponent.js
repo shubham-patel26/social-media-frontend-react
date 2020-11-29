@@ -61,6 +61,7 @@ class Main extends Component {
         <DisplayFeedWithTag tag={match.params.tag} tagList={this.state.tags}/>
       )
     }
+    
     return (
       <div className='container'>
           <Header setLogin={this.setLogin} setName={this.setName} isLoggedin={this.state.isLoggedin} username={this.state.username}/>
@@ -70,7 +71,7 @@ class Main extends Component {
             <Route exact path='/feeds' component={()=><Feed  tagList={this.state.tags}/>}/>
             <Route exact path='/feeds/tag/:tag' component={FeedWithTag}/>
             <Route path='/feeds/id/:postId' component={PostWithId}/>
-            <Route path='/newpost' component={NewPost}/>
+            <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin}/>}/>
             <Redirect to ='/home'/>
           </Switch>
       </div>
