@@ -8,6 +8,7 @@ import Home from './Home';
 import Feed from './Feed';
 import DisplayPost from './DisplayPost';
 import DisplayFeedWithTag from './DisplayFeedWithTag';
+import NewPost from './NewPost';
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
@@ -69,6 +70,7 @@ class Main extends Component {
             <Route exact path='/feeds' component={()=><Feed  tagList={this.state.tags}/>}/>
             <Route exact path='/feeds/tag/:tag' component={FeedWithTag}/>
             <Route path='/feeds/id/:postId' component={PostWithId}/>
+            <Route path='/newpost' component={NewPost}/>
             <Redirect to ='/home'/>
           </Switch>
       </div>

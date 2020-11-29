@@ -11,7 +11,7 @@ function Footer(props) {
                     <li><Link to='/home'>Home</Link></li>
                         
                         <li><Link to='/feeds'>Posts</Link></li>
-                        <li><Link to='/postfeed'>Post a experience</Link></li>
+                        <li><Link to='/newpost'>Post a experience</Link></li>
                     </ul>
                 </div>
                 <div className="col-7 col-sm-5">

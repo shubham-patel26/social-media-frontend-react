@@ -1,6 +1,7 @@
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
+import {Link } from 'react-router-dom';
 
 import Axios from 'axios';
 
@@ -66,6 +67,7 @@ class Header extends Component {
     handleLogout(){
             this.props.setLogin(false);
             this.props.setName('');
+            localStorage.removeItem('token');
             alert('you are logged out');
     }
     render() {
@@ -100,7 +102,7 @@ class Header extends Component {
                 <Navbar dark expand="md">
                     <div className="container">
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-auto" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='beingSocial' /></NavbarBrand>
+                        <NavbarBrand className="mr-auto" ><Link to ='/home'><img src='assets/images/logo.png' height="30" width="41" alt='beingSocial' /></Link></NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
                             <NavItem>
@@ -118,7 +120,7 @@ class Header extends Component {
                             } 
                             
                             <NavItem>
-                                <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
+                                <NavLink className="nav-link" to='/newpost'><span className="fa fa-address-card fa-lg"></span>Add Feed </NavLink>
                             </NavItem>
                             </Nav>
                         </Collapse>
