@@ -19,22 +19,29 @@ class Main extends Component {
 
     this.setLogin = this.setLogin.bind(this);
     this.setName = this.setName.bind(this);
+    this.changeState = this.changeState.bind(this);
     this.state={
-      tags:['a','b','c'],
+      tags:[],
       isLoggedin: false,
-      username: ''
+      username: '',
+      mount: false
       
     }
   }
 
-  // async componentDidMount(){
-  //     let tagList = Axios.get(``);
-  //     console.log(tagList);
-
-  //     this.setState({
-  //       tags: tagList
-  //     })
-  // }
+    componentDidMount(){
+      Axios.get(`http://localhost:3444/tag`)
+      .then(tags=>{
+        console.log(tags.data);
+        
+        console.log(tags.data);
+        this.setState({
+          tags: tags.data
+        })
+      })
+      .catch(err=>console.log(err));
+      
+  }
 
   setLogin(success){
     this.setState({
@@ -48,6 +55,12 @@ class Main extends Component {
       username : username
     })
   }
+  changeState(){
+    console.log(this.state.mount)
+    this.setState({
+      mount: !this.state.mount
+    })
+  }
   render() {
     
     const PostWithId= ({match})=>{
@@ -57,19 +70,20 @@ class Main extends Component {
     }
 
     const FeedWithTag=({match})=>{
+      console.log(this.state.mount);
       return (
-        <DisplayFeedWithTag tag={match.params.tag} tagList={this.state.tags}/>
+        <DisplayFeedWithTag changeState={this.changeState} tag_id={match.params.tag_id} tagList={this.state.tags } path={match.path}/>
       )
     }
     
     return (
-      <div className='container'>
+      <div className>
           <Header setLogin={this.setLogin} setName={this.setName} isLoggedin={this.state.isLoggedin} username={this.state.username}/>
 
           <Switch>
             <Route path='/home' component={Home} />
             <Route exact path='/feeds' component={()=><Feed  tagList={this.state.tags}/>}/>
-            <Route exact path='/feeds/tag/:tag' component={FeedWithTag}/>
+            <Route exact path='/feeds/tag/:tag_id' component={FeedWithTag}/>
             <Route path='/feeds/id/:postId' component={PostWithId}/>
             <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin}/>}/>
             <Redirect to ='/home'/>

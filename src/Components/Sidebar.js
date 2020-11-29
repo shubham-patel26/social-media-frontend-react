@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom';
 
 function ShowSidebar(props){
 
-        console.log(props.tagList);
+        console.log(props);
         return(
             <div className='sidebar'>
                 <ul>{
                         props.tagList.map(tag=>
-                            <li className='list-unstyled' key={tag}><Link to={`/feeds/tag/${tag}`}>{tag}</Link></li>
+                            <li className='list-unstyled' onClick={props.changeState} key={tag.tag_id}><Link to={`/feeds/tag/${tag.tag_id}`}>{tag.tag_name}</Link></li>
 
                         )
                     }
@@ -20,7 +20,7 @@ function ShowSidebar(props){
         )
  }
  const Sidebar=(props) =>{
-     console.log(props.tagList);
+    //  console.log(props.tagList);
      console.log('sh');
     return (
         
@@ -32,7 +32,7 @@ function ShowSidebar(props){
                     </ul>
                 </div>
                 <h4>categories</h4>
-                <ShowSidebar tagList={props.tagList}/>
+                <ShowSidebar changeState={props.changeState} tagList={props.tagList} path={props.path}/>
             </div>
     )
  }

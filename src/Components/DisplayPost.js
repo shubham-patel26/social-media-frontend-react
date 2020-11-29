@@ -10,27 +10,39 @@ class DisplayPost extends Component{
         this.toggle = this.toggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state={
-            post:{heading: 'test1',
-                    body: 'test body 1',
-                userRegno:'2018ugcs026'},
-            comments: [{comment:'how are you',author:'shubham'}],
+            post:'',
+            comments: [],
             isOpen: false
         }
     }
 
-    async componentDidMount(){
-        // alert(this.props.postId);
-        let post= await Axios.get(`http://localhost/3444/showpost/${this.props.postId}`);
-        console.log(post);
-        this.setState({
-            post : post
-        })
+    componentDidMount(){
+        alert(this.props.postId);
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+        let one=`http://localhost:3444/showpost/${this.props.postId}`;
+        let two=`http://localhost:3444/comment/${this.props.postId}`;
+        let auth = {
+            headers:{
+                'authorization': bearer,
+                'Content-Type': 'application/json'
+            }
+        };
+        const requestOne = Axios.get(one,auth);
+        const requestTwo =Axios.get(two,auth);
+        Axios.all([requestOne,requestTwo])
+        .then(Axios.spread((...resp)=>{
+            const post=resp[0].data;
+            const comments=resp[1].data;
+            console.log(post);
+            this.setState({
+                post : post,
+                comments:comments
+            })
 
-        let comments = await Axios.get(``);
-        console.log(comments);
-        this.setState({
-            comments: comments
-        })
+        }))
+        .catch(err=>console.log(err));
+        
+
     }
 
     toggle() {
@@ -41,7 +53,22 @@ class DisplayPost extends Component{
 
     handleSubmit(event) {
         this.toggle();
-        this.state.comments.push(this.comment.value);
+
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+        let data={newComment: this.comment.value};
+        Axios.post(`http://localhost:3444/addcomment/${this.props.postId}`,data,{
+            headers:{
+                'authorization': bearer,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(resp=>{
+            // console.log(resp);
+            this.setState({
+                comments: resp.data
+            })
+        })
+        .catch(err=>console.log(err));
         alert("comment: " + this.comment.value );
         event.preventDefault();
 
@@ -81,7 +108,7 @@ class DisplayPost extends Component{
 
 
                 <div className='row'>
-                    <DisplayComment comments={this.state.comments} reg_no={this.state.post.userRegno} />
+                    <DisplayComment comments={this.state.comments}  />
                 </div>
                     </div>
                 </div>

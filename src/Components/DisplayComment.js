@@ -12,7 +12,7 @@ const DisplayComment=(props)=>{
                   
                         <Media body>
                             <Media heading>
-                            {comment.author}
+                            {comment.reg_no}
                             </Media>
                             {comment.comment}
                         </Media>

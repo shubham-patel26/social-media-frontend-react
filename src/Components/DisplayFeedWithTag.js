@@ -9,28 +9,37 @@ class DisplayFeedWithTag extends Component{
         super(props);
 
         this.state={
-            feeds:[{post_id:1,
-                    heading: 'test1',
-                body: 'test body1' }
-            ]
+            
+            feeds:[]
         }
     }
 
-    // async componentDidMount(){
-    //     let feeds = await Axios.get(`http://localhost:3444/feed/tag/${this.props.tag}`);
+    componentDidMount(){
+        console.log(this.props.tag_id);
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+        Axios.get(`http://localhost:3444/feed/tag/${this.props.tag_id}`,{
+            headers:{
+                'authorization': bearer,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(feeds=>{
+            console.log(feeds.data);
+            this.setState({
+                feeds: feeds.data
+            })
+        })
+        .catch(err=>console.log(err));
         
-    //     console.log(feeds);
-    //     this.setState({
-    //         feeds: feeds
-    //     })
-    // }
+    }
 
     render(){
-        console.log('here');
+        console.log(this.props);
+        console.log(this.props.tag_id);
         return(
             <div className='row'>
                 <div className='col-md-3'>
-                    <Sidebar tagList={this.props.tagList} />
+                    <Sidebar changeState={this.props.changeState} tagList={this.props.tagList} path={this.props.path} />
                 </div>
                 <div className="col-md" >
                      <Listfeed feeds= {this.state.feeds}/>
