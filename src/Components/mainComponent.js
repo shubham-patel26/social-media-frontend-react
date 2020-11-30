@@ -29,20 +29,40 @@ class Main extends Component {
     }
   }
 
-    componentDidMount(){
-      Axios.get(`http://localhost:3444/tag`)
-      .then(tags=>{
-        console.log(tags.data);
-        
-        console.log(tags.data);
-        this.setState({
-          tags: tags.data
+    async componentDidMount(){
+      
+      if(localStorage.getItem('token'))
+      {
+          
+          const bearer = 'Bearer ' + localStorage.getItem('token');
+          let user = await Axios.get(`http://localhost:3444/users/getuser/`,{
+            headers:{
+                'authorization': bearer,
+                'Content-Type': 'application/json'
+            }
+            
         })
-      })
-      .catch(err=>console.log(err));
+        console.log(user.data[0]);
+        if(user.data[0]){
+          let tags= await Axios.get(`http://localhost:3444/tag`)
+          console.log(user.data[0].name);
+            this.setState({
+              tags:tags.data,
+              username:user.data[0].name,
+              isLoggedin: true
+            })
+          
+          
+        }
+        
+      }
+      
+      
       
   }
 
+  
+  
   setLogin(success){
     this.setState({
       isLoggedin: success
@@ -85,7 +105,7 @@ class Main extends Component {
             <Route exact path='/feeds' component={()=><Feed  tagList={this.state.tags}/>}/>
             <Route exact path='/feeds/tag/:tag_id' component={FeedWithTag}/>
             <Route path='/feeds/id/:postId' component={PostWithId}/>
-            <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin}/>}/>
+            <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin} changeState={this.changeState}/>}/>
             <Redirect to ='/home'/>
           </Switch>
       </div>

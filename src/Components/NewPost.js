@@ -21,6 +21,7 @@ class NewPost extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addTag = this.addTag.bind(this);
+        this.refreshPage=this.refreshPage.bind(this);
     }
 
 
@@ -42,6 +43,10 @@ class NewPost extends Component{
             tagList:tagList
         })
     }
+
+    refreshPage() {
+		window.location.reload(false);
+  }
     handleSubmit(event) {
         // console.log('Current State is: ' + JSON.stringify(this.state));
         // alert('Current State is: ' + JSON.stringify(this.state));
@@ -70,11 +75,14 @@ class NewPost extends Component{
                     tag:'',
                     touched:{heading:false,tag:false},
                 })
+                this.props.changeState();
                 alert(resp.data.message);
+                this.refreshPage();
             }
         })
         .catch(err=>console.log(err));
         event.preventDefault();
+        
     }
 
     handleBlur = (field)=> (evt)=> {

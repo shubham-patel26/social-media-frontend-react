@@ -52,6 +52,7 @@ class Header extends Component {
             // console.log(resp);
             const {token,success,name}=resp.data;
             localStorage.setItem('token',token);
+            
             this.props.setLogin(success);
             this.props.setName(name);
             
