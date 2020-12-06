@@ -19,9 +19,8 @@ class Main extends Component {
 
     this.setLogin = this.setLogin.bind(this);
     this.setName = this.setName.bind(this);
-    this.changeState = this.changeState.bind(this);
     this.state={
-      tags:[],
+      // tags:[],
       isLoggedin: false,
       username: '',
       mount: false
@@ -44,10 +43,8 @@ class Main extends Component {
         })
         console.log(user.data[0]);
         if(user.data[0]){
-          let tags= await Axios.get(`http://localhost:3444/tag`)
-          console.log(user.data[0].name);
+          
             this.setState({
-              tags:tags.data,
               username:user.data[0].name,
               isLoggedin: true
             })
@@ -75,12 +72,7 @@ class Main extends Component {
       username : username
     })
   }
-  changeState(){
-    console.log(this.state.mount)
-    this.setState({
-      mount: !this.state.mount
-    })
-  }
+  
   render() {
     
     const PostWithId= ({match})=>{
@@ -89,12 +81,7 @@ class Main extends Component {
         )
     }
 
-    const FeedWithTag=({match})=>{
-      console.log(this.state.mount);
-      return (
-        <DisplayFeedWithTag changeState={this.changeState} tag_id={match.params.tag_id} tagList={this.state.tags } path={match.path}/>
-      )
-    }
+    
     
     return (
       <div className=''>
@@ -102,10 +89,10 @@ class Main extends Component {
 
           <Switch>
             <Route path='/home' component={Home} />
-            <Route exact path='/feeds' component={()=><Feed  tagList={this.state.tags}/>}/>
-            <Route exact path='/feeds/tag/:tag_id' component={FeedWithTag}/>
+            <Route exact path='/feeds' component={Feed}/>
+            
             <Route path='/feeds/id/:postId' component={PostWithId}/>
-            <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin} changeState={this.changeState}/>}/>
+            <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin}/>}/>
             <Redirect to ='/home'/>
           </Switch>
       </div>

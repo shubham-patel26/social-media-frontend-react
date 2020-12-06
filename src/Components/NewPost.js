@@ -9,7 +9,7 @@ class NewPost extends Component{
         super(props);
         this.state = {
             heading: '',
-            tag: '',
+            tag: "",
             tagList:[],
             body: '',
             touched:{
@@ -21,7 +21,7 @@ class NewPost extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addTag = this.addTag.bind(this);
-        this.refreshPage=this.refreshPage.bind(this);
+        // this.refreshPage=this.refreshPage.bind(this);
     }
 
 
@@ -29,7 +29,7 @@ class NewPost extends Component{
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
+        
         this.setState({
           [name]: value
         });
@@ -37,6 +37,7 @@ class NewPost extends Component{
 
     addTag(){
         var tagList=this.state.tagList;
+
         tagList.push(this.state.tag);
         this.setState({
             tag:'',
@@ -44,9 +45,7 @@ class NewPost extends Component{
         })
     }
 
-    refreshPage() {
-		window.location.reload(false);
-  }
+    
     handleSubmit(event) {
         // console.log('Current State is: ' + JSON.stringify(this.state));
         // alert('Current State is: ' + JSON.stringify(this.state));
@@ -56,6 +55,7 @@ class NewPost extends Component{
             body: this.state.body,
             tags: this.state.tagList
         }
+        JSON.stringify(data);
         const bearer = 'Bearer ' + localStorage.getItem('token');
         // console.log(data);
         // console.log(bearer);
@@ -75,9 +75,10 @@ class NewPost extends Component{
                     tag:'',
                     touched:{heading:false,tag:false},
                 })
-                this.props.changeState();
                 alert(resp.data.message);
-                this.refreshPage();
+                this.props.changeState();
+                
+                
             }
         })
         .catch(err=>console.log(err));

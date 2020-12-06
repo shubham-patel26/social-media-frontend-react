@@ -156,3 +156,43 @@
        
          
     }
+    .card-title{
+      font-size: 2rem;
+      text-align: center;
+      color: purple;
+  }
+  .btn-primary{
+      background-color: 	#8A2BE2 ;
+      font-weight: bolder;
+  }
+  .author-name{
+      font-size: 1.2rem;
+      font-style: italic;
+  }
+  .about{
+      font-size: 0.9rem;
+  }
+  .likes_comments{
+      border: none;
+      text-align: center;
+      
+  }
+  .side{
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      height: 0;
+      bottom:100px;
+      z-index: -1;
+  }
+  .writing-time{
+      color:gray;
+      font-size:0.8rem;
+  }
+  .tt{
+      font-size: 3rem;
+  }
+  .tt1{
+      font-size: 1rem;
+      padding:0 3% 0 3% ;
+  }

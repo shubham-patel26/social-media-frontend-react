@@ -75,19 +75,50 @@ class DisplayPost extends Component{
     }
 
     render(){
+        console.log(this.state.post);
         return (
             <div className="container">
-                <div className='row'>
+                {/* <div className='row'>
                     <div className='col-md-2'>
                     <button>Like</button>
                     </div>
 
-                    <div className='col-md'>
-                        <h3>{this.state.post.heading}</h3>
+                    <div className='col-md'> */}
+                        {/* <h3>{this.state.post.heading}</h3>
                         <p>
                             {this.state.post.body}
-                        </p>
-                        <div className="row">
+                        </p> */}
+                        
+                        <div className="row  ">
+                            <div className="col-12 col-md-8 col-xl-9 ">
+                                <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title tt">{this.state.post.heading}</h5>
+                                <p className="writing-time">- {this.state.post.postedOn}</p>
+                                    <p className="card-text tt1">{this.state.post.body} </p>
+                                </div>
+                                </div>
+                                
+                            </div>
+                            <div className="col-12 col-md-4 col-xl-3 side">
+                                <div className="card mb-5">
+                                <div className="card-body">
+                                    <h5>Author</h5>
+                                    <hr></hr>
+                                    <h4 className="author-name">Vikash Kumar</h4>
+                                    <p className="about">Best Novel 2018 award holder. Generous , sophomore , with a glimse of calm attitude</p>
+                                    <a href="#" className="btn btn-primary btn-sm">More from him</a>
+                                </div>
+                                </div>
+                                <div className="card likes_comments">
+                                    <i className="fa fa-heart ">&nbsp;{this.state.post.upvotes}</i><hr></hr>
+                                    <i className="fa fa-comment">&nbsp;{this.state.comments.length}</i>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                <div className="row">
                 <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button>
                     <Collapse isOpen={this.state.isOpen}>
                         <Card>
@@ -111,11 +142,11 @@ class DisplayPost extends Component{
                     <DisplayComment comments={this.state.comments}  />
                 </div>
                     </div>
-                </div>
+                // </div>
 
 
                 
-            </div>
+            // </div>
         )
     }
 }
