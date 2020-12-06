@@ -37,14 +37,19 @@ class DisplayFeedWithTag extends Component{
         console.log(this.props);
         console.log(this.props.tag_id);
         return(
-            <div className='row'>
-                <div className='col-md-3'>
-                    <Sidebar changeState={this.props.changeState} tagList={this.props.tagList} path={this.props.path} />
+            <div className=''>
+                <div className='row'>
+                <div className='col-3 red sidebar'>
+                    <Sidebar changeState={this.props.changeState} tagList={this.props.tagList}/>
                 </div>
-                <div className="col-md" >
-                     <Listfeed feeds= {this.state.feeds}/>
+                <div className="col-9 main-page" >
+                    <div className="row">
+                         <Listfeed feeds= {this.state.feeds}/>
+                     </div>
                 </div>
             </div>
+            </div>
+            
         )
         
     }

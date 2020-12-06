@@ -6,10 +6,10 @@ function ShowSidebar(props){
 
         console.log(props);
         return(
-            <div className='sidebar'>
-                <ul>{
+            <div  >
+                <ul style={{paddingLeft:'0',marginLeft:'0'}}>{
                         props.tagList.map(tag=>
-                            <li className='list-unstyled' onClick={props.changeState} key={tag.tag_id}><Link to={`/feeds/tag/${tag.tag_id}`}>{tag.tag_name}</Link></li>
+                            <li onClick={props.changeState} key={tag.tag_id}><Link to={`/feeds/tag/${tag.tag_id}`} >{tag.tag_name}</Link></li>
 
                         )
                     }
@@ -23,17 +23,13 @@ function ShowSidebar(props){
     //  console.log(props.tagList);
      console.log('sh');
     return (
-        
-            <div className="col-md-3 ">
-                <div className=''>
-                    <ul className='list-unstyled'>
-                        <li><Link to = '/home'> Home </Link></li>
-                        <li><Link to = '/postfeed'> Post a Feed </Link></li>
-                    </ul>
+        <React.Fragment>
+              <div className="tags">
+                    <h1 >Tags</h1>
                 </div>
-                <h4>categories</h4>
-                <ShowSidebar changeState={props.changeState} tagList={props.tagList} path={props.path}/>
-            </div>
+             <ShowSidebar changeState={props.changeState} tagList={props.tagList} path={props.path}/>
+        </React.Fragment>
+         
     )
  }
 

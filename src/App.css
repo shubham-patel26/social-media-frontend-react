@@ -33,3 +33,126 @@
   background-color: beige;
   margin-bottom: auto;
 }
+
+      .btn-primary{
+          background-color: 	#8A2BE2 !important ;
+          font-weight: bolder;
+
+      }
+      .card-title{
+          color: 	#8B008B;
+          font-size: 1.2rem;
+          font-weight: bolder;
+          text-align: center;
+      }
+      
+      .module {
+          font-size:0.9rem;
+          margin: 0 0 1em 0;
+          overflow: hidden;
+      }
+      .last-line {
+
+          height: 6rem; /* exactly seven lines */
+          text-overflow: -o-ellipsis-lastline;
+      }
+      .fa-heart{
+          color: red;
+          border-right: 1px solid blanchedalmond;
+      }
+      .fa-comment{
+          color:royalblue;
+      }
+      .time{
+          font-size: 0.8rem;
+      }
+      .red{
+          
+          padding-left: 0;
+          margin-left: 0;
+          /* border: 10px solid green; */
+          
+          /* min-width: 50vw;
+           */
+           min-height: 100vh;
+           /* min-width: 50vw; */
+      }
+      @media (min-width: 768px){
+      .container{
+          max-width:100%;
+      }  
+      }
+
+      @media (min-width: 992px){
+      .container{
+          max-width:100%;
+      }
+      }
+      .row{
+          padding-left: 0;
+          margin-left: 0;
+      }
+      .sidebar{
+          overflow: auto;
+          max-height: 100vh;
+          overflow-x: hidden;
+          text-align: center;
+          border-right: 1px solid #e0e0e0;
+          word-wrap: break-word;
+          padding-left: 0;
+          padding-right: 0;
+          max-width: 100%;
+      }
+      .main-page{
+          overflow: auto;
+          overflow-x: hidden;
+          max-height: 100vh;
+          padding-left: 0;
+      }
+     ul{
+          list-style: none;
+     }
+     .author{
+          margin-right: auto;
+          font-size: 0.95rem;
+          color: navy;
+          font-weight: 500;
+          text-decoration: none;
+     }
+
+     ::-webkit-scrollbar {
+      width: 3px;
+      
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px purple; 
+      border-radius: 10px;
+      }
+      
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+      background: purple; 
+      border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+      background: #8A2BE2; 
+      }
+      .tags{
+        position: sticky;
+        top: 0;
+        background-color: purple;
+        color: white;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0 ;
+        max-width: 100%;
+        width: 100%;
+         
+       
+         
+    }

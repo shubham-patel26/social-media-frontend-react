@@ -122,7 +122,7 @@ class NewPost extends Component{
                  <div className="col-12 col-md-9">
                      <Form onSubmit={this.handleSubmit}>
                      <FormGroup row>
-                             <Label htmlFor="heading" md={2}>Title</Label>
+                             <Label htmlFor="heading" md={2}>Title :</Label>
                              <Col md={10}>
                                  <Input type="text" id="heading" name="heading"
                                      placeholder="title"
@@ -137,7 +137,7 @@ class NewPost extends Component{
                          
                          
                         <FormGroup row>
-                             <Label htmlFor='tags' md={2}>Tags</Label>
+                             <Label htmlFor='tags' md={2}>Tags :</Label>
                              <Col md={6}>
                                  <Input type="text" id="tag" name="tag"
                                      placeholder="put a tag"
@@ -148,7 +148,12 @@ class NewPost extends Component{
                                      onChange={this.handleInputChange} />
                                  <FormFeedback>{errors.tag}</FormFeedback>
                              </Col>
-                             <Col><span><Button color="primary" onClick= {this.addTag}>Add</Button> </span></Col>
+                             
+                                 <Col><span><Button color="primary" onClick= {this.addTag}
+                                 disabled={!this.state.tag} >Add</Button> </span></Col>
+                                               
+                             
+                             
                              <Col>{this.state.tagList.map(tag=>
                                     <Table striped>
                                     <thead>
@@ -162,7 +167,7 @@ class NewPost extends Component{
                          </FormGroup>
 
                          <FormGroup row>
-                             <Label htmlFor="body" md={2}>Your body</Label>
+                             <Label htmlFor="body" md={2}>blog body :</Label>
                              <Col md={10}>
                                  <Input type="textarea" id="body" name="body"
                                      rows="20"

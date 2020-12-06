@@ -97,7 +97,7 @@ class Main extends Component {
     }
     
     return (
-      <div className>
+      <div className=''>
           <Header setLogin={this.setLogin} setName={this.setName} isLoggedin={this.state.isLoggedin} username={this.state.username}/>
 
           <Switch>

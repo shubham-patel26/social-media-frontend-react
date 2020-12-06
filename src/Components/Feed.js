@@ -13,26 +13,36 @@ class Feed extends Component{
         }
     }
 
-    // async componentDidMount(){
-    //     let feeds = await Axios.get('http://localhost:3444/feed');
+    async componentDidMount(){
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+        let feeds = await Axios.get('http://localhost:3444/feed',{
+            headers:{
+                'authorization': bearer,
+                'Content-Type': 'application/json'
+            }
+        });
         
-    //     console.log(feeds);
-    //     this.setState({
-    //         feeds: feeds
-    //     })
-    // }
+        console.log(feeds.data);
+        this.setState({
+            feeds: feeds.data
+        })
+    }
 
     render(){
         // console.log(this.props.tagList);
         
         return(
-            <div className='row'>
-                <div className='col-md-3'>
-                    <Sidebar tagList={this.props.tagList} />
+            <div className=''>
+                <div className='row'>
+                <div className='col-3 red sidebar'>
+                    <Sidebar changeState={this.props.changeState} tagList={this.props.tagList}/>
                 </div>
-                <div className="col-md" >
-                    <Listfeed feeds= {this.state.feeds}/>
+                <div className="col-9 main-page" >
+                    <div className="row">
+                         <Listfeed feeds= {this.state.feeds}/>
+                     </div>
                 </div>
+            </div>
             </div>
         )
         

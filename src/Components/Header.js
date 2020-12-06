@@ -8,6 +8,8 @@ import Axios from 'axios';
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import React,{Component} from 'react';
+
+import Registration from './Registration';
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -16,10 +18,11 @@ class Header extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.toggleRegModal = this.toggleRegModal.bind(this);
         this.state = {
           isNavOpen: false,
-          isModalOpen: false
-          
+          isModalOpen: false,
+          isRegModalOpen : false
         };
       }
 
@@ -32,6 +35,13 @@ class Header extends Component {
         this.setState({
           isModalOpen: !this.state.isModalOpen
         });
+      }
+
+      toggleRegModal(){
+          this.setState({
+              isModalOpen: false,
+              isRegModalOpen: !this.state.isRegModalOpen
+          })
       }
      handleLogin(event) {
         this.toggleModal();
@@ -97,10 +107,14 @@ class Header extends Component {
                                 </Label>
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">Login</Button>
+
+                            <p>Do not have an account? <span><Button color='primary' onClick={this.toggleRegModal}>Register </Button> </span></p>
                         </Form>
                     </ModalBody>
                 </Modal>
-                <Navbar dark expand="md">
+
+                <Registration isModalOpen={this.state.isRegModalOpen} toggleModal={this.toggleRegModal} ></Registration>
+                <Navbar dark expand="md" style={{position:'sticky' , zIndex:'100',top:'0'}}>
                     <div className="container">
                         <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className="mr-auto" ><Link to ='/home'><img src='assets/images/logo.png' height="30" width="41" alt='beingSocial' /></Link></NavbarBrand>
