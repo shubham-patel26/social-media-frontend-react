@@ -3,10 +3,11 @@ import {Media } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 const Listfeed=( {feeds})=>{
+  
     return (
         feeds.map(feed=>{
             return(
-            
+              
                
                
                <div className="col-sm-4  mb-3">
@@ -17,6 +18,11 @@ const Listfeed=( {feeds})=>{
 
                      
                     <p className="card-text module last-line">{feed.body}</p>
+
+                    <p>
+                      tags: {
+                        feed.tags
+                      }</p>
                      <Link to={`/feeds/id/${feed.post_id}`} className="btn btn-primary btn-sm ">Read more</Link>
                      
                      <div className="offset-7  col-sm-9 col-md-6 mb-3">

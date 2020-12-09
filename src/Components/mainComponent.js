@@ -7,8 +7,10 @@ import Header from './Header';
 import Home from './Home';
 import Feed from './Feed';
 import DisplayPost from './DisplayPost';
-import DisplayFeedWithTag from './DisplayFeedWithTag';
+import Chatbox from './ChatBox/chatbox';
 import NewPost from './NewPost';
+import UserDetail from './UserDetails/UserDetails';
+import UserProfile from './UserDetails/UserProfile';
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
@@ -18,11 +20,11 @@ class Main extends Component {
     super(props);
 
     this.setLogin = this.setLogin.bind(this);
-    this.setName = this.setName.bind(this);
+    this.setUser = this.setUser.bind(this);
     this.state={
       // tags:[],
       isLoggedin: false,
-      username: '',
+      user: '',
       mount: false
       
     }
@@ -45,7 +47,7 @@ class Main extends Component {
         if(user.data[0]){
           
             this.setState({
-              username:user.data[0].name,
+              user:user.data[0],
               isLoggedin: true
             })
           
@@ -66,10 +68,10 @@ class Main extends Component {
       
     })
   }
-  setName(username){
+  setUser(user){
     this.setState({
       
-      username : username
+      user : user
     })
   }
   
@@ -85,7 +87,7 @@ class Main extends Component {
     
     return (
       <div className=''>
-          <Header setLogin={this.setLogin} setName={this.setName} isLoggedin={this.state.isLoggedin} username={this.state.username}/>
+          <Header setLogin={this.setLogin} setUser={this.setUser} isLoggedin={this.state.isLoggedin} user={this.state.user}/>
 
           <Switch>
             <Route path='/home' component={Home} />
@@ -93,6 +95,9 @@ class Main extends Component {
             
             <Route path='/feeds/id/:postId' component={PostWithId}/>
             <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin}/>}/>
+            <Route path='/chatbox' component={Chatbox} />
+            <Route path='/users' component={UserDetail}/>
+            <Route path='/userprofile/:userId' component={({match})=> <UserProfile userId={match.params.userId} user={this.state.user}/>}/>
             <Redirect to ='/home'/>
           </Switch>
       </div>

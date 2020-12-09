@@ -59,12 +59,12 @@ class Header extends Component {
                 }
           })
           .then(resp=>{
-            // console.log(resp);
-            const {token,success,name}=resp.data;
+            console.log(resp);
+            const {token,success,user}=resp.data;
             localStorage.setItem('token',token);
             
             this.props.setLogin(success);
-            this.props.setName(name);
+            this.props.setUser(user);
             
           })
           .catch(err=>{
@@ -77,7 +77,7 @@ class Header extends Component {
 
     handleLogout(){
             this.props.setLogin(false);
-            this.props.setName('');
+            this.props.setUser('');
             localStorage.removeItem('token');
             alert('you are logged out');
     }
@@ -117,7 +117,7 @@ class Header extends Component {
                 <Navbar dark expand="md" style={{position:'sticky' , zIndex:'100',top:'0'}}>
                     <div className="container">
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-auto" ><Link to ='/home'><img src='assets/images/logo.png' height="30" width="41" alt='beingSocial' /></Link></NavbarBrand>
+                        <NavbarBrand className="mr-auto" ><Link to ='/home'><img src='' height="30" width="41" alt='beingSocial' /></Link></NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
                             <NavItem>
@@ -128,9 +128,20 @@ class Header extends Component {
                              </NavItem>
                             {
                                 this.props.isLoggedin
-                                ?  <NavItem>
+
+                                ? (<React.Fragment>
+                                    <NavItem>
                                      <NavLink className="nav-link"  to='/feeds'><span className="fa fa-list fa-lg"></span> posts</NavLink>
                                    </NavItem>
+                                   <NavItem>
+                                   <NavLink className="nav-link"  to='/chatbox'><span className="fa fa-comments fa-lg"></span> chatbox</NavLink>
+                                 </NavItem>
+                                 <NavItem>
+                                   <NavLink className="nav-link"  to='/users'><span className="fa fa-user fa-lg"></span> Users</NavLink>
+                                 </NavItem>
+                                </React.Fragment> 
+                                
+                                   )
                                 : null
                             } 
                             
@@ -144,7 +155,7 @@ class Header extends Component {
                                 this.props.isLoggedin ? 
                                     
                                 <NavItem>
-                                    <span style={{color:'white',padding:'2px'}} >{this.props.username}</span>
+                                   <Link to ={`/userprofile/${this.props.user.reg_no}`}><span style={{color:'white',padding:'2px'}} >{this.props.user.name}</span></Link> 
                                     <Button outline onClick={this.handleLogout}><span className="fa fa-sign-out fa-lg"></span> Logout</Button>
                                 </NavItem>
                                 

@@ -44,11 +44,15 @@ class NewPost extends Component{
             tagList:tagList
         })
     }
-
+    // componentDidMount(){
+    //     console.log('component is mounted');
+    // }
+    // componentWillUnmount(){
+    //     console.log('component is unmounted');
+    // }
     
     handleSubmit(event) {
-        // console.log('Current State is: ' + JSON.stringify(this.state));
-        // alert('Current State is: ' + JSON.stringify(this.state));
+        
         
         const data={
             heading:this.state.heading,

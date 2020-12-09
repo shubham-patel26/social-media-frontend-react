@@ -6,56 +6,13 @@ import {useState,useEffect} from 'react';
 import Sidebar from './Sidebar';
 import Listfeed from './Listfeed';
 
-// class Feed extends Component{
-//     constructor(props){
-//         super(props);
-
-//         this.state={
-//             feeds:[]
-//         }
-//     }
-
-//     async componentDidMount(){
-//         const bearer = 'Bearer ' + localStorage.getItem('token');
-//         let feeds = await Axios.get('http://localhost:3444/feed',{
-//             headers:{
-//                 'authorization': bearer,
-//                 'Content-Type': 'application/json'
-//             }
-//         });
-        
-//         console.log(feeds.data);
-//         this.setState({
-//             feeds: feeds.data
-//         })
-//     }
-
-//     render(){
-//         // console.log(this.props.tagList);
-        
-//         return(
-//             <div className=''>
-//                 <div className='row'>
-//                 <div className='col-3 red sidebar'>
-//                     <Sidebar changeState={this.props.changeState} tagList={this.props.tagList}/>
-//                 </div>
-//                 <div className="col-9 main-page" >
-//                     <div className="row">
-//                          <Listfeed feeds= {this.state.feeds}/>
-//                      </div>
-//                 </div>
-//             </div>
-//             </div>
-//         )
-        
-//     }
-// }
 
 const Feed = (props)=>{
 
     const [feeds,setFeeds] = useState([]);
     const [tag_id,setTagId] = useState(null);
     const [tagList,setTagList] = useState([]); 
+    
     useEffect(() => {
         var api = `http://localhost:3444/tag`;
         const FetchTagList= async ()=>{
@@ -77,7 +34,14 @@ const Feed = (props)=>{
                 }
             });
 
-            setFeeds(data);
+            
+            for(var i=0;i<data.posts.length;i++){
+                data.posts[i].tags=data.tags[data.posts[i].post_id];
+            }
+            console.log(data.posts);
+            setFeeds(data.posts);
+            
+            
         }
         datafetching();
         
@@ -96,7 +60,7 @@ const Feed = (props)=>{
 
                 <div className="col-9 main-page" >
                     <div className="row">
-                        <Listfeed feeds= {feeds}/>
+                        <Listfeed feeds= {feeds} />
                     </div>
                 </div>
                 </div>

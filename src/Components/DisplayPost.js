@@ -12,6 +12,7 @@ class DisplayPost extends Component{
         this.state={
             post:'',
             comments: [],
+            author: {},
             isOpen: false
         }
     }
@@ -31,12 +32,14 @@ class DisplayPost extends Component{
         const requestTwo =Axios.get(two,auth);
         Axios.all([requestOne,requestTwo])
         .then(Axios.spread((...resp)=>{
-            const post=resp[0].data;
+            const post=resp[0].data.post;
+            const author = resp[0].data.authorDetails;
             const comments=resp[1].data;
-            console.log(post);
+            console.log(author[0]);
             this.setState({
                 post : post,
-                comments:comments
+                comments:comments,
+                author: author[0]
             })
 
         }))
@@ -75,7 +78,7 @@ class DisplayPost extends Component{
     }
 
     render(){
-        console.log(this.state.post);
+        // console.log(this.state.author);
         return (
             <div className="container">
                 {/* <div className='row'>
@@ -105,8 +108,8 @@ class DisplayPost extends Component{
                                 <div className="card-body">
                                     <h5>Author</h5>
                                     <hr></hr>
-                                    <h4 className="author-name">Vikash Kumar</h4>
-                                    <p className="about">Best Novel 2018 award holder. Generous , sophomore , with a glimse of calm attitude</p>
+                                    <h4 className="author-name">{this.state.author.name}</h4>
+                                    <p className="about">{this.state.author.intro}</p>
                                     <a href="#" className="btn btn-primary btn-sm">More from him</a>
                                 </div>
                                 </div>

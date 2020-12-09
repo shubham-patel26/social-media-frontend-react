@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 
 function ShowSidebar(props){
 
-        console.log(props);
+        // console.log(props);
         return(
             <div  >
                 <ul style={{paddingLeft:'0',marginLeft:'0'}}>{
@@ -22,7 +22,7 @@ function ShowSidebar(props){
  }
  const Sidebar=(props) =>{
     //  console.log(props.tagList);
-     console.log('sh');
+    //  console.log('sh');
 
     return (
         <React.Fragment>
