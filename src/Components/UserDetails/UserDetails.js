@@ -9,7 +9,7 @@ import ListUsers from './ListUsers';
 const UserDetail =(props)=>{
     const [userList,setUserList] = useState([]);
     const [term,setTerm] = useState('');
-    
+    console.log(props.user);
     useEffect(() => {
         const fetchUserList = async()=>{
             let api = `http://localhost:3444/users/search/${term}`;
@@ -49,7 +49,7 @@ const UserDetail =(props)=>{
             </div>
             
             
-            <ListUsers users={userList}/>
+            <ListUsers users={userList} user={props.user}/>
             
 
 

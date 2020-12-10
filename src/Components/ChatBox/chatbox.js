@@ -4,17 +4,20 @@ import {Form ,FormGroup,Input,Button} from 'reactstrap';
 import Axios from 'axios';
 
 const Chatbox = (props)=>{
-
-    const [senderId,setSenderId] = useState('2018UGCS026');
-    const [recieverId,setRecieverId] = useState('2018UGCS025');
+    
+    const [senderId,setSenderId] = useState(props.sender);
+    const [recieverId,setRecieverId] = useState(props.receiverId);
     const [messages,setMessages] = useState([]);
     const [dummyState,toggleDummyState] = useState(false);
+   
+    // console.log(senderId);
+    // console.log(recieverId);
 
     useEffect(() => {
         const fetchMessages=async ()=>{
             const api = `http://localhost:3444/messages/${senderId}/${recieverId}`;
             const bearer = 'Bearer ' + localStorage.getItem('token');
-            console.log(bearer);
+            // console.log(bearer);
             
             const data= await Axios.get(api,{
                 headers:{
@@ -35,7 +38,7 @@ const Chatbox = (props)=>{
         const timeoutId =setTimeout(() => {
             // if(messages[0])
             fetchMessages();
-        },2000);
+        },499);
 
         return () => {
             clearTimeout(timeoutId);
@@ -44,7 +47,7 @@ const Chatbox = (props)=>{
     
     const handleSubmit=(event)=>{
         
-        console.log(event.target.message.value);
+        // console.log(event.target.message.value);
         
         
         let api = `http://localhost:3444/messages/post`;
@@ -62,7 +65,7 @@ const Chatbox = (props)=>{
         })
         .then(resp=>{
             console.log(resp.data);
-            setMessages(resp.data);
+            // setMessages(resp.data);
             toggleDummyState(!dummyState);
         })
         .catch(err=>console.log(err));
@@ -73,18 +76,18 @@ const Chatbox = (props)=>{
     let message = null;
     return (
         <div className='container'>
-            <div className='row'>
+            
             {messages.map(message=>{
                 return (
                     
-                    (message.sender_reg_no==senderId)? <div className='col-md-6 justify-content-start'>{message.message} </div>
-                                                : <div className ='col-md-6 justify-content-end '>{message.message} </div>
+                    (message.sender_reg_no==senderId)? <div className='row' style={{display: 'flex', justifyContent: 'flex-start',backgroundColor:'white',width:'80%',marginTop:"8px"}}>{message.message} {message.sender_reg_no} </div>
+                                                    : <div className='row' style={{display: 'flex', justifyContent: 'flex-end',backgroundColor:'white',width:'80%' ,marginTop:'8px'}}>{message.message} {message.sender_reg_no}</div>
                 )
                 
                 })
 
                 }
-            </div>
+            
             
             <Form onSubmit={(event)=>handleSubmit(event)}>
                 <FormGroup>

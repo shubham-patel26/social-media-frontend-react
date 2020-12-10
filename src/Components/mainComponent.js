@@ -11,6 +11,7 @@ import Chatbox from './ChatBox/chatbox';
 import NewPost from './NewPost';
 import UserDetail from './UserDetails/UserDetails';
 import UserProfile from './UserDetails/UserProfile';
+import UserChat from './ChatBox/UserChat';
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
@@ -22,7 +23,6 @@ class Main extends Component {
     this.setLogin = this.setLogin.bind(this);
     this.setUser = this.setUser.bind(this);
     this.state={
-      // tags:[],
       isLoggedin: false,
       user: '',
       mount: false
@@ -50,13 +50,9 @@ class Main extends Component {
               user:user.data[0],
               isLoggedin: true
             })
-          
-          
         }
         
-      }
-      
-      
+      }  
       
   }
 
@@ -83,8 +79,8 @@ class Main extends Component {
         )
     }
 
-    
-    
+    console.log('here');
+    console.log(this.state.user.reg_no);
     return (
       <div className=''>
           <Header setLogin={this.setLogin} setUser={this.setUser} isLoggedin={this.state.isLoggedin} user={this.state.user}/>
@@ -95,8 +91,9 @@ class Main extends Component {
             
             <Route path='/feeds/id/:postId' component={PostWithId}/>
             <Route path='/newpost' component={()=><NewPost isLoggedin={this.state.isLoggedin}/>}/>
-            <Route path='/chatbox' component={Chatbox} />
-            <Route path='/users' component={UserDetail}/>
+            <Route path='/userchat' component={UserChat}/>
+            <Route exact path='/chatbox/:userId' component={({match})=> <Chatbox receiverId={match.params.userId} sender={this.state.user.reg_no}/>} />
+            <Route path='/users' component={()=><UserDetail user={this.state.user} />}/>
             <Route path='/userprofile/:userId' component={({match})=> <UserProfile userId={match.params.userId} user={this.state.user}/>}/>
             <Redirect to ='/home'/>
           </Switch>

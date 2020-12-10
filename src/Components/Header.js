@@ -134,7 +134,7 @@ class Header extends Component {
                                      <NavLink className="nav-link"  to='/feeds'><span className="fa fa-list fa-lg"></span> posts</NavLink>
                                    </NavItem>
                                    <NavItem>
-                                   <NavLink className="nav-link"  to='/chatbox'><span className="fa fa-comments fa-lg"></span> chatbox</NavLink>
+                                   <NavLink className="nav-link"  to='/userchat'><span className="fa fa-comments fa-lg"></span> chatbox</NavLink>
                                  </NavItem>
                                  <NavItem>
                                    <NavLink className="nav-link"  to='/users'><span className="fa fa-user fa-lg"></span> Users</NavLink>
