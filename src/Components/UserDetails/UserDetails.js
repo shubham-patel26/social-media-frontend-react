@@ -2,25 +2,37 @@ import React from 'react';
 import {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom'
 import {Input} from 'reactstrap';
+import Axios from 'axios';
 
+import ListUsers from './ListUsers';
 
 const UserDetail =(props)=>{
     const [userList,setUserList] = useState([]);
-    const [term,setTerm] = useState(null);
+    const [term,setTerm] = useState('');
     
-    // useEffect(() => {
-    //     const fetchUserList = async()=>{
-    //         let api = `http://localhost:3444/`
-    //         const {data} = Axios.get()
-    //     }
+    useEffect(() => {
+        const fetchUserList = async()=>{
+            let api = `http://localhost:3444/users/search/${term}`;
+            const bearer = 'Bearer ' + localStorage.getItem('token');
+            const {data} = await Axios.get(api,{
+                headers:{
+                    'authorization': bearer,
+                    'Content-Type': 'application/json'
+                },
+                
+            })
+            console.log(data);
+            setUserList(data);
+            
+        }
 
-    //     const setTimeoutId= setTimeout(() => {
-    //         fetchUserList();
-    //     }, 500);
-    //     return () => {
-    //         clearTimeout(setTimeoutId);
-    //     }
-    // }, [term]);
+        const setTimeoutId= setTimeout(() => {
+            fetchUserList();
+        }, 500);
+        return () => {
+            clearTimeout(setTimeoutId);
+        }
+    }, [term]);
 
     const handleInputChange = (event )=>{
         console.log(event.target.value);
@@ -35,17 +47,10 @@ const UserDetail =(props)=>{
                 
                 onChange={(event)=>handleInputChange(event)} />
             </div>
-            <div className='row'>
-            <div className="media" style={{backgroundColor:'white'}}>
-                
-                <div className="media-body">
-                    <h5 className="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-                <div className='btn-primary'> <Link to={'/home'}>message</Link></div>
-                </div>
-
-            </div>
+            
+            
+            <ListUsers users={userList}/>
+            
 
 
         </div>
