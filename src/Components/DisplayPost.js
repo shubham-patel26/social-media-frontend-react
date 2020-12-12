@@ -19,7 +19,7 @@ class DisplayPost extends Component{
     }
 
     componentDidMount(){
-        alert(this.props.postId);
+        // alert(this.props.postId);
         const bearer = 'Bearer ' + localStorage.getItem('token');
         let one=`http://localhost:3444/showpost/${this.props.postId}`;
         let two=`http://localhost:3444/comment/${this.props.postId}`;
@@ -73,7 +73,8 @@ class DisplayPost extends Component{
             })
         })
         .catch(err=>console.log(err));
-        alert("comment: " + this.comment.value );
+        // alert("comment: " + this.comment.value );
+
         event.preventDefault();
         event.target.reset();
 

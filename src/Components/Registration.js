@@ -53,9 +53,10 @@ class Registration  extends Component{
             password: this.state.password,
             name:this.state.username,
             intro: this.state.intro,
-            facebook_link: this.state.facebook_id,
-            linkedin_link: this.state.Linkedin_id
+            facebook: this.state.facebook_id,
+            linkedin: this.state.Linkedin_id
         }
+        // console.log(data);
         
         Axios.post('http://localhost:3444/users/signup',data)
         .then(resp=>{

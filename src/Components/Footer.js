@@ -9,8 +9,8 @@ function Footer(props) {
                     <h5>Links</h5>
                     <ul className="list-unstyled">
                     <li><Link to='/home'>Home</Link></li>
+                        {props.isLoggedin?<li><Link to='/feeds'>Posts</Link></li>:null}
                         
-                        <li><Link to='/feeds'>Posts</Link></li>
                         <li><Link to='/newpost'>Post a experience</Link></li>
                     </ul>
                 </div>

@@ -10,7 +10,7 @@ const Home = (props) => {
           <p className="lead">Best platform for internship experiences.</p>
         </Container>
       </Jumbotron>
-      <Footer/>
+      <Footer isLoggedin={props.isLoggedin}/>
     </div>
   );
 };

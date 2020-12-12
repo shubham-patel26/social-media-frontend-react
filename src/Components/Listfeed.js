@@ -28,7 +28,7 @@ const Listfeed=( {feeds})=>{
                      <div className="offset-7  col-sm-9 col-md-6 mb-3">
                     <i className="fa fa-heart  ">{feed.upvotes}  </i>
                     <i> </i>
-                       <i className="fa fa-comment">12</i>
+                       <i className="fa fa-comment">{feed.comment_count}</i>
                      </div>
                      <div className="time">
                        {feed.posted_on}

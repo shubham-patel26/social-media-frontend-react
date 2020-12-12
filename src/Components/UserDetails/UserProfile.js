@@ -12,6 +12,7 @@ class  UserProfile extends Component{
         this.state={
             user:{},
             activeTab:'1',
+            posts: []
             
         }
         this.toggle=this.toggle.bind(this);
@@ -26,27 +27,83 @@ class  UserProfile extends Component{
 
     // console.log(props);
     componentDidMount(){
-        let api = `http://localhost:3444/users/getuserdetails/${this.props.userId}`;
-            const bearer = 'Bearer ' + localStorage.getItem('token');
+
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+        let one=`http://localhost:3444/users/getuserdetails/${this.props.userId}`;
+        let two=`http://localhost:3444/feed/user/${this.props.userId}`;
+        let auth = {
+            headers:{
+                'authorization': bearer,
+                'Content-Type': 'application/json'
+            }
+        };
+        
+        
         const fetchUserData = async ()=>{
             
-            const data = await Axios.get(api,{
-                headers:{
-                    'authorization': bearer,
-                    'Content-Type': 'application/json'
-                }
-            });
-            this.setState({
-                user:data.data
+            Axios.get(one,auth)
+            .then(resp=>{
+                console.log(resp.data);
+                Axios.get(two,auth)
+                .then(data=>{
+                    console.log(data.data);
+                    this.setState({
+                        user:resp.data,
+                        posts: data.data
+                    })
+                })
+                
+                .catch(err=>console.log(err));
+
             })
-            console.log(data.data)
+            .catch(err=>console.log(err));
         }
         fetchUserData();
         
         
     }
     
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.userId!=this.props.userId) {
+            const bearer = 'Bearer ' + localStorage.getItem('token');
+            let one=`http://localhost:3444/users/getuserdetails/${nextProps.userId}`;
+            let two=`http://localhost:3444/feed/user/${nextProps.userId}`;
+            let auth = {
+                headers:{
+                    'authorization': bearer,
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            
+            const fetchUserData = async ()=>{
+                
+                Axios.get(one,auth)
+                .then(resp=>{
+                    console.log(resp.data);
+                    Axios.get(two,auth)
+                    .then(data=>{
+                        
+                        console.log(data.data);
+                        this.setState({
+                            user:resp.data,
+                            posts: data.data
+                        })
+                    })
+                    
+                    .catch(err=>console.log(err));
+    
+                })
+                .catch(err=>console.log(err));
+            }
+            fetchUserData();
+        }
+      }
+    
     render(){
+        // console.log('here'+this.props.userId);
+        
+        // console.log(this.state.user.reg_no)
         return (
             
             <div className="container bootstrap snippets bootdeys">
@@ -63,22 +120,24 @@ class  UserProfile extends Component{
                             
 
                             <div className="profile-since">
-                                Member since: Jan 2012
+                                
                             </div>
 
                             <div className="profile-details">
                                 <ul className="fa-ul">
                                     
-                                    <li><i className="fa-li fa fa-comment"></i>Posts: <span>828</span></li>
+                                    <li><i className="fa-li fa fa-comment"></i>Posts: <span>{this.state.posts.length}</span></li>
                                     
                                 </ul>
                             </div>
-
+                            {this.props.user.reg_no!=this.state.user.reg_no?
                             <div className="profile-message-btn center-block text-center">
-                                <a href="#" className="btn btn-success">
-                                    <i className="fa fa-envelope"></i> Send message
-                                </a>
-                            </div>
+                            <Link className="btn btn-success" to={`/chatbox/${this.state.user.reg_no}`}><i className="fa fa-envelope"></i> Send message</Link> 
+                                    
+                                
+                            </div>:
+                            null}
+                            
                         </div>
                     </div>
 
@@ -138,8 +197,8 @@ class  UserProfile extends Component{
                                 </div>
                                 <div className="col-sm-4 profile-social">
                                     <ul className="fa-ul">
-                                       {this.state.user.linkedin_link?<li><i className="fa-li fa fa-linkedin-square"></i><a href={this.state.user.linkedin_link}>{this.state.user.name} </a></li>:null} 
-                                        {this.state.user.facebook_link?<li><i className="fa-li fa fa-facebook-square"></i><a href={this.state.user.facebook_link}>{this.state.user.name} </a></li>:null}
+                                       {this.state.user.linkedin_link?<li><i className="fa-li fa fa-linkedin-square"></i><a href={this.state.user.linkedin_link} target="_blank">{this.state.user.name} </a></li>:null} 
+                                        {this.state.user.facebook_link?<li><i className="fa-li fa fa-facebook-square"></i><a href={this.state.user.facebook_link} target="_blank">{this.state.user.name} </a></li>:null}
                                         
                                         
                                     </ul>
@@ -157,7 +216,7 @@ class  UserProfile extends Component{
                                     Activity
                                 </NavLink>
                                 </NavItem>
-                                <NavItem>
+                                {this.props.user.reg_no==this.state.user.reg_no?<NavItem>
                                 <NavLink
                                     className={classnames({ active: this.state.activeTab === '2' })}
                                     onClick={() => { this.toggle('2'); }}
@@ -165,30 +224,38 @@ class  UserProfile extends Component{
                                     Chats
                                 </NavLink>
                                 </NavItem>
+                                :
+                                null
+                                }
+                                
                             </Nav>
                             <TabContent activeTab={this.state.activeTab}>
                                 <TabPane tabId="1">
-                                    <div className="table-responsive">
+                                            <div className="table-responsive">
                                             <table className="table">
                                                 <tbody>
-                                                    
-                                                    <tr>
+                                                {this.state.posts.map(post=>{
+                                                return (
+                                                    <tr key={post.post_id}>
                                                         <td className="text-center">
                                                             <i className="fa fa-check"></i>
                                                         </td>
                                                         <td>
-                                                            John Doe  posted a comment in <a href="#">Lost in Translation opening scene</a> discussion.
+                                                            {this.state.user.name}  posted a feed <Link to={`../feeds/id/${post.post_id}`}>{post.heading}</Link> .
                                                         </td>
                                                         <td>
-                                                            2014/08/08 12:08
+                                                            {post.posted_on}
                                                         </td>
                                                     </tr>
                                                     
-                                                        
-                                                    
+                                                )
+                                            })}
                                                 </tbody>
                                             </table>
                                         </div>
+                                        
+                                    
+                                    
                                 </TabPane>
                                 <TabPane tabId="2">
                                 <Row>

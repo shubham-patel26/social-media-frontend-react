@@ -78,15 +78,13 @@ class Main extends Component {
             <DisplayPost postId={match.params.postId}/>
         )
     }
-
-    console.log('here');
-    console.log(this.state.user.reg_no);
+   
     return (
       <div className=''>
           <Header setLogin={this.setLogin} setUser={this.setUser} isLoggedin={this.state.isLoggedin} user={this.state.user}/>
 
           <Switch>
-            <Route path='/home' component={Home} />
+            <Route path='/home' component={()=><Home isLoggedin={this.state.isLoggedin}/>} />
             <Route exact path='/feeds' component={Feed}/>
             
             <Route path='/feeds/id/:postId' component={PostWithId}/>

@@ -68,6 +68,7 @@ class Header extends Component {
             
           })
           .catch(err=>{
+              alert('either email or password is wrong');
               console.log(err);
           })
         
@@ -80,6 +81,7 @@ class Header extends Component {
             this.props.setUser('');
             localStorage.removeItem('token');
             alert('you are logged out');
+            
     }
     render() {
         
