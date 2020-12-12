@@ -5,15 +5,13 @@ const DisplayComment=(props)=>{
     console.log(props)
     return (
         
-        <div>
+        <div style={{backgroundColor:'white' ,width:'70%', marginLeft:'15px', paddingLeft:'10px',paddingTop:'5px'}}>
             {props.comments.map(comment=>{
                 return (
-                    <Media>
+                    <Media >
                   
                         <Media body>
-                            <Media heading>
-                            {comment.reg_no}
-                            </Media>
+                            <p>{comment.reg_no}</p>
                             {comment.comment}
                         </Media>
                     </Media>

@@ -112,10 +112,10 @@ class  UserProfile extends Component{
                         <div className="main-box clearfix">
                         <h2>{this.state.user.name}</h2>
                             
-                            
-                            <div className="profile-label">
+                            {this.state.user.reg_no=='2018UGCS026'? <div className="profile-label">
                                 <span className="label label-danger">Admin</span>
-                            </div>
+                            </div>:null}
+                           
 
                             
 
