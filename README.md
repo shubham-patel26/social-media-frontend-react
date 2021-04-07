@@ -1,3 +1,4 @@
+Link to the deployed app: https://beingsocial26.netlify.app
 # INTRODUCTION
  this is a reactjs project on a basic social media web app which supports
  the authentication of users , 
