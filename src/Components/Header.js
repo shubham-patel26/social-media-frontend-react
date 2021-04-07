@@ -52,7 +52,7 @@ class Header extends Component {
         }
          Axios({
             method: 'post',
-            url: 'http://localhost:3444/users/login',
+            url: 'https://being-social26.herokuapp.com/users/login',
             data: user,
             headers: {
                 'Content-Type': 'application/json'

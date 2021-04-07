@@ -58,7 +58,7 @@ class Registration  extends Component{
         }
         // console.log(data);
         
-        Axios.post('http://localhost:3444/users/signup',data)
+        Axios.post('https://being-social26.herokuapp.com/users/signup',data)
         .then(resp=>{
             console.log(resp.data);
             if(resp.data.success){

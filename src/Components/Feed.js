@@ -14,7 +14,7 @@ const Feed = (props)=>{
     const [tagList,setTagList] = useState([]); 
     
     useEffect(() => {
-        var api = `http://localhost:3444/tag`;
+        var api = `https://being-social26.herokuapp.com/tag`;
         const FetchTagList= async ()=>{
             const {data} = await Axios.get(api);
 
@@ -24,7 +24,7 @@ const Feed = (props)=>{
         
     }, [])
     useEffect(() => {
-        var api = tag_id ?`http://localhost:3444/feed/tag/${tag_id}` :'http://localhost:3444/feed';
+        var api = tag_id ?`https://being-social26.herokuapp.com/feed/tag/${tag_id}` :'https://being-social26.herokuapp.com/feed';
         const bearer = 'Bearer ' + localStorage.getItem('token');
         const datafetching= async()=>{
             const {data} = await Axios.get(api,{

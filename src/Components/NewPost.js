@@ -63,7 +63,7 @@ class NewPost extends Component{
         const bearer = 'Bearer ' + localStorage.getItem('token');
         // console.log(data);
         // console.log(bearer);
-        Axios.post('http://localhost:3444/newpost',data,{
+        Axios.post('https://being-social26.herokuapp.com/newpost',data,{
             headers:{
                 'authorization': bearer,
                 'Content-Type': 'application/json'

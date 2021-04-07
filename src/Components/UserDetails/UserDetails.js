@@ -12,7 +12,7 @@ const UserDetail =(props)=>{
     console.log(props.user);
     useEffect(() => {
         const fetchUserList = async()=>{
-            let api = `http://localhost:3444/users/search/${term}`;
+            let api = `https://being-social26.herokuapp.com/users/search/${term}`;
             const bearer = 'Bearer ' + localStorage.getItem('token');
             const {data} = await Axios.get(api,{
                 headers:{

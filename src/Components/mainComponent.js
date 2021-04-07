@@ -36,7 +36,7 @@ class Main extends Component {
       {
           
           const bearer = 'Bearer ' + localStorage.getItem('token');
-          let user = await Axios.get(`http://localhost:3444/users/getuser/`,{
+          let user = await Axios.get(`https://being-social26.herokuapp.com/users/getuser/`,{
             headers:{
                 'authorization': bearer,
                 'Content-Type': 'application/json'

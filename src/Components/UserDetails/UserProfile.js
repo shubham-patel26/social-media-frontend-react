@@ -29,8 +29,8 @@ class  UserProfile extends Component{
     componentDidMount(){
 
         const bearer = 'Bearer ' + localStorage.getItem('token');
-        let one=`http://localhost:3444/users/getuserdetails/${this.props.userId}`;
-        let two=`http://localhost:3444/feed/user/${this.props.userId}`;
+        let one=`https://being-social26.herokuapp.com/users/getuserdetails/${this.props.userId}`;
+        let two=`https://being-social26.herokuapp.com/feed/user/${this.props.userId}`;
         let auth = {
             headers:{
                 'authorization': bearer,
@@ -66,8 +66,8 @@ class  UserProfile extends Component{
     componentWillUpdate(nextProps, nextState) {
         if (nextProps.userId!=this.props.userId) {
             const bearer = 'Bearer ' + localStorage.getItem('token');
-            let one=`http://localhost:3444/users/getuserdetails/${nextProps.userId}`;
-            let two=`http://localhost:3444/feed/user/${nextProps.userId}`;
+            let one=`https://being-social26.herokuapp.com/users/getuserdetails/${nextProps.userId}`;
+            let two=`https://being-social26.herokuapp.com/feed/user/${nextProps.userId}`;
             let auth = {
                 headers:{
                     'authorization': bearer,

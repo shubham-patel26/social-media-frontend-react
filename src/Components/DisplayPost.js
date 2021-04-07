@@ -21,8 +21,8 @@ class DisplayPost extends Component{
     componentDidMount(){
         // alert(this.props.postId);
         const bearer = 'Bearer ' + localStorage.getItem('token');
-        let one=`http://localhost:3444/showpost/${this.props.postId}`;
-        let two=`http://localhost:3444/comment/${this.props.postId}`;
+        let one=`https://being-social26.herokuapp.com/showpost/${this.props.postId}`;
+        let two=`https://being-social26.herokuapp.com/comment/${this.props.postId}`;
         let auth = {
             headers:{
                 'authorization': bearer,
@@ -60,7 +60,7 @@ class DisplayPost extends Component{
 
         const bearer = 'Bearer ' + localStorage.getItem('token');
         let data={newComment: this.comment.value};
-        Axios.post(`http://localhost:3444/addcomment/${this.props.postId}`,data,{
+        Axios.post(`https://being-social26.herokuapp.com/addcomment/${this.props.postId}`,data,{
             headers:{
                 'authorization': bearer,
                 'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ class DisplayPost extends Component{
 
     handleVoting(type){
         const bearer = 'Bearer ' + localStorage.getItem('token');
-        let api = type==1?`http://localhost:3444/upvote/${this.state.post.postId}`:`http://localhost:3444/downvote/${this.state.post.postId}`;
+        let api = type==1?`https://being-social26.herokuapp.com/upvote/${this.state.post.postId}`:`https://being-social26.herokuapp.com/downvote/${this.state.post.postId}`;
         Axios.get(api,{
             headers:{
                 'authorization': bearer,

@@ -15,7 +15,7 @@ const Chatbox = (props)=>{
 
     useEffect(() => {
         const fetchMessages=async ()=>{
-            const api = `http://localhost:3444/messages/${senderId}/${recieverId}`;
+            const api = `https://being-social26.herokuapp.com/messages/${senderId}/${recieverId}`;
             const bearer = 'Bearer ' + localStorage.getItem('token');
             // console.log(bearer);
             
@@ -50,7 +50,7 @@ const Chatbox = (props)=>{
         // console.log(event.target.message.value);
         
         
-        let api = `http://localhost:3444/messages/post`;
+        let api = `https://being-social26.herokuapp.com/messages/post`;
         const bearer = 'Bearer ' + localStorage.getItem('token');
         const data={
             senderRegNo: senderId,
