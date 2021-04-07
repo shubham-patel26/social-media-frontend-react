@@ -2,6 +2,7 @@
 import React,{Component} from 'react';
 import {  Collapse,Button, Modal, ModalHeader, ModalBody,Col,
     Form, FormGroup, Input, Label,FormFeedback } from 'reactstrap';
+    import  { Redirect } from 'react-router-dom'
 
 import Axios from 'axios';
 
@@ -73,11 +74,14 @@ class Registration  extends Component{
                     touched:{Registration_no:false,username:false},
                 })
                 // this.props.changeState();
+                
                 alert(resp.data.message);
+                
                 this.refreshPage();
             }
         })
         .catch(err=>console.log(err));
+        
         event.preventDefault();
         
     }

@@ -1,17 +1,17 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter} from 'react-router-dom'
+import {HashRouter} from 'react-router-dom'
 
 import Main from './Components/mainComponent';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <React.Fragment>
         <Main />
       </React.Fragment>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
